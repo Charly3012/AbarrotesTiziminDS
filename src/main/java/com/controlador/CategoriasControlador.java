@@ -78,8 +78,60 @@ public class CategoriasControlador implements Initializable {
 
     @FXML
     void clickEliminar(ActionEvent event) {
+        //Para seleccionar un objeto
+        categoriaSelec = this.tabCategorias.getSelectionModel().getSelectedItem();
+
+        if(categoriaSelec == null){
+            modelo.Alerta alertaNoSeleccionado = new modelo.Alerta("Error", "Debes seleccionar una categoria");
+            alertaNoSeleccionado.mostrarAlertaError();
+        }else{
+            if(true){
+                this.categorias.remove(categoriaSelec);
+                this.busquedaCategorias.remove(categoriaSelec);
+                this.tabCategorias.refresh();
+
+                modelo.Alerta alertaCategoriaEliminado = new modelo.Alerta("Categoria eliminado", "La categoria seleccionada se ha eliminado con exito");
+                alertaCategoriaEliminado.mostrarAlertaInformation();
+
+                this.tabCategorias.getSelectionModel().clearSelection();
+            }
+            else {
+                modelo.Alerta categoriaEnUso = new modelo.Alerta("Error al eliminar", "No es posible eliminar la categoria ya que existen productos en esta categoría");
+                categoriaEnUso.mostrarAlertaError();
+            }
+
+        }
+
+        this.txtIdCategoria.setText("");
+        this.txtNombreCategoria.setText("");
+        this.txtDescripcionCategoria.setText("");
 
     }
+
+    /*
+    public boolean comprobacionEliminar(){
+
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
+            ArrayList<Producto> productosComprobacion = (ArrayList<Producto>) ois.readObject();
+
+            for (int i = 0; i < productosComprobacion.size(); i++) {
+                if(productosComprobacion.get(i).getNombre().equals(categoriaSeleccionado.getNombreCategoria())){
+                    return false;
+                }
+
+            }
+            return true;
+
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+    }
+     */
 
     @FXML
     void clickGuardar(ActionEvent event) {
@@ -178,8 +230,8 @@ public class CategoriasControlador implements Initializable {
         assert txtId != null : "fx:id=\"txtId\" was not injected: check your FXML file 'FXMLCategorias.fxml'.";
         assert txtNombre != null : "fx:id=\"txtNombre\" was not injected: check your FXML file 'FXMLCategorias.fxml'.";
         iniciarDatos();
-        System.out.println("hola mundo ");
-        //persistenciaLeer();
+        //System.out.println("hola mundo ");
+        persistenciaLeer();
     }
 
     public void iniciarDatos(){
@@ -225,7 +277,7 @@ public class CategoriasControlador implements Initializable {
     }
 
     public void cerrarVentana() {
-        //persistenciaEscribir();
+        persistenciaEscribir();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLMenu.fxml"));
