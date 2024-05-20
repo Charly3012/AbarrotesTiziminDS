@@ -76,7 +76,6 @@ public class CategoriasControlador implements Initializable {
 
     private Categoria categoriaSelec;
 
-    /*
     @FXML
     void clickEliminar(ActionEvent event) {
         //Para seleccionar un objeto
@@ -87,8 +86,8 @@ public class CategoriasControlador implements Initializable {
             alertaNoSeleccionado.mostrarAlertaError();
         }else{
             if(true){
-                this.categorias.remove(categoriaSelec);
-                this.busquedaCategorias.remove(categoriaSelec);
+                this.obsCategorias.remove(categoriaSelec);
+                this.obsBusqueda.remove(categoriaSelec);
                 this.tabCategorias.refresh();
 
                 modelo.Alerta alertaCategoriaEliminado = new modelo.Alerta("Categoria eliminado", "La categoria seleccionada se ha eliminado con exito");
@@ -103,13 +102,11 @@ public class CategoriasControlador implements Initializable {
 
         }
 
-        this.txtIdCategoria.setText("");
-        this.txtNombreCategoria.setText("");
-        this.txtDescripcionCategoria.setText("");
+        this.txtId.setText("");
+        this.txtNombre.setText("");
+        this.txtDescripcion.setText("");
 
     }
-
-     */
 
     /*
     public boolean comprobacionEliminar(){
@@ -233,7 +230,6 @@ public class CategoriasControlador implements Initializable {
         assert txtId != null : "fx:id=\"txtId\" was not injected: check your FXML file 'FXMLCategorias.fxml'.";
         assert txtNombre != null : "fx:id=\"txtNombre\" was not injected: check your FXML file 'FXMLCategorias.fxml'.";
         iniciarDatos();
-        //System.out.println("hola mundo ");
         persistenciaLeer();
     }
 
@@ -310,5 +306,24 @@ public class CategoriasControlador implements Initializable {
             this.txtNombre.setText(categoriaSelec.getNombre());
             this.txtDescripcion.setText(categoriaSelec.getDescripcion());
         }
+    }
+
+    public void escribirBuscar(KeyEvent keyEvent) {
+
+        String busqueda = this.txtBuscar.getText();
+
+        if(busqueda.isEmpty()){
+            this.tabCategorias.setItems(obsCategorias);
+        }
+        else{
+            this.obsBusqueda.clear();
+            for (Categoria categoria : this.obsCategorias){
+                if(categoria.getNombre().toLowerCase().contains(busqueda.toLowerCase())){
+                    this.obsBusqueda.add(categoria);
+                }
+            }
+            this.tabCategorias.setItems(obsBusqueda);
+        }
+
     }
 }
