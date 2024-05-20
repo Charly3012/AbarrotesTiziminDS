@@ -76,6 +76,7 @@ public class CategoriasControlador implements Initializable {
 
     private Categoria categoriaSelec;
 
+    /*
     @FXML
     void clickEliminar(ActionEvent event) {
         //Para seleccionar un objeto
@@ -107,6 +108,8 @@ public class CategoriasControlador implements Initializable {
         this.txtDescripcionCategoria.setText("");
 
     }
+
+     */
 
     /*
     public boolean comprobacionEliminar(){
