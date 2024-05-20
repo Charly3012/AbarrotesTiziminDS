@@ -19,11 +19,11 @@
             <TableColumn fx:id="colCant" prefWidth="118.0" text="Cantidad" />
          </columns>
       </TableView>
-      <TextField layoutX="233.0" layoutY="68.0" prefHeight="25.0" prefWidth="82.0" />
-      <TextField layoutX="233.0" layoutY="26.0" prefHeight="25.0" prefWidth="82.0" />
-      <TextField layoutX="330.0" layoutY="26.0" prefHeight="25.0" prefWidth="91.0" />
-      <TextField layoutX="330.0" layoutY="67.0" prefHeight="25.0" prefWidth="91.0" />
-      <TextField layoutX="439.0" layoutY="26.0" prefHeight="25.0" prefWidth="105.0" />
+      <TextField fx:id="nombreField" layoutX="233.0" layoutY="68.0" prefHeight="25.0" prefWidth="82.0" />
+      <TextField fx:id="identificadorField" layoutX="233.0" layoutY="26.0" prefHeight="25.0" prefWidth="82.0" />
+      <TextField fx:id="precioVentaField" layoutX="330.0" layoutY="26.0" prefHeight="25.0" prefWidth="91.0" />
+      <TextField fx:id="precioProveedorField" layoutX="330.0" layoutY="67.0" prefHeight="25.0" prefWidth="91.0" />
+      <TextField fx:id="cantidadField" layoutX="439.0" layoutY="26.0" prefHeight="25.0" prefWidth="105.0" />
       <Button fx:id="btnGuardar" layoutX="443.0" layoutY="92.0" mnemonicParsing="false" onAction="#guardar" text="Guardar producto" />
       <Label layoutX="233.0" layoutY="6.0" text="Identificador" />
       <Label layoutX="233.0" layoutY="51.0" text="Nombre" />
@@ -32,6 +32,6 @@
       <Label layoutX="443.0" layoutY="6.0" text="Cantidad" />
       <TextField layoutX="36.0" layoutY="47.0" prefHeight="25.0" prefWidth="167.0" />
       <Label layoutX="43.0" layoutY="18.0" text="Buscar" />
-      <ChoiceBox fx:id="tipoCantidad" layoutX="439.0" layoutY="56.0" prefHeight="25.0" prefWidth="105.0" />
+      <ChoiceBox fx:id="tipoCantidadChoiceBox" layoutX="439.0" layoutY="56.0" prefHeight="25.0" prefWidth="105.0" />
    </children>
 </AnchorPane>
