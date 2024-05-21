@@ -96,4 +96,10 @@ public class RegistroInvcontroller  {
 
         tblProductos.setItems(productoData);
     }
+
+    public void cerrarVentana() {
+
+
+
+    }
 }

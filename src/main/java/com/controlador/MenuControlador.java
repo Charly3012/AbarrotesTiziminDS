@@ -62,6 +62,24 @@ public class MenuControlador {
     @FXML
     void clickInventario(MouseEvent event) {
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaRegistroInv.fxml"));
+            Parent root = loader.load();
+            RegistroInvcontroller controladorCategorias = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Categorias");
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e -> controladorCategorias.cerrarVentana());
+            Stage myStage = (Stage) this.btnInventario.getScene().getWindow();
+            myStage.close();
+
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
