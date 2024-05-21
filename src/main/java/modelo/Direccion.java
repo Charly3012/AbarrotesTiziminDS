@@ -1,27 +1,23 @@
-package Modelo;
+package modelo;
 
 public class Direccion {
 
     private String calle;
     private int numero;
     private String colonia;
-    private int CP;
+    private int cp;
     private String ciudad;
     private String estado;
 
 
-    public Direccion() {
-
-    }
-
-    public Direccion(int numero, String calle, String colonia, String ciudad, String estado, long telefono, int CP) {
-        this.numero = numero;
-        this.calle = calle;
-        this.colonia = colonia;
-        this.ciudad = ciudad;
-        this.estado = estado;
-        this.CP = CP;
-    }
+   public Direccion(String calle, int numero, String colonia, int cp, String ciudad, String estado){
+       this.calle = calle;
+       this.numero = numero;
+       this.colonia = colonia;
+       this.cp = cp;
+       this.ciudad = ciudad;
+       this.estado = estado;
+   }
 
     public String getCalle() {
         return calle;
@@ -48,11 +44,11 @@ public class Direccion {
     }
 
     public int getCP() {
-        return CP;
+        return cp;
     }
 
     public void setCP(int CP) {
-        this.CP = CP;
+        this.cp = cp;
     }
 
     public String getCiudad() {
@@ -71,4 +67,8 @@ public class Direccion {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "C. " + calle +", NO." + numero + ", " + colonia +", " + cp + ", " + ciudad + ", " + estado;
+    }
 }

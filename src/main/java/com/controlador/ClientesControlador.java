@@ -3,20 +3,28 @@ package com.controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import modelo.Cliente;
+import modelo.Direccion;
+import modelo.Alerta;
 
 public class ClientesControlador implements Initializable {
+
+
+    @FXML
+    private ComboBox<String> cmbGenero;
 
     @FXML
     private ResourceBundle resources;
@@ -34,6 +42,9 @@ public class ClientesControlador implements Initializable {
     private Button btnLimpiar;
 
     @FXML
+    private TableColumn<?, ?> colGenero;
+
+    @FXML
     private TableColumn<?, ?> colDireccion;
 
     @FXML
@@ -46,7 +57,7 @@ public class ClientesControlador implements Initializable {
     private TableColumn<?, ?> colTelefono;
 
     @FXML
-    private TableView<?> tabClientes;
+    private TableView<Cliente> tabClientes;
 
     @FXML
     private TextField txtBuscar;
@@ -79,6 +90,18 @@ public class ClientesControlador implements Initializable {
     private TextField txtTelefono;
 
     @FXML
+    private ObservableList<Cliente> obsClientes;
+
+    @FXML
+    private ObservableList<Cliente> obsBusqueda;
+
+    @FXML
+    private ObservableList<String> obsGeneros;
+
+    private Cliente clienteSelecc;
+
+
+    @FXML
     void clickEliminar(ActionEvent event) {
 
     }
@@ -86,10 +109,102 @@ public class ClientesControlador implements Initializable {
     @FXML
     void clickGuardar(ActionEvent event) {
 
+        try {
+
+            //Datos del cliente
+            String nombre = this.txtNombre.getText();
+            long telefono = Long.parseLong(this.txtTelefono.getText());
+            int id = Integer.parseInt(this.txtId.getText());
+            String genero = this.cmbGenero.getSelectionModel().getSelectedItem() + "";
+
+            //Datos de la direccion del cliente
+            String calle = this.txtCalle.getText();
+            int numero = Integer.parseInt(this.txtNumeroDeCasa.getText());
+            String colonia = this.txtColonia.getText();
+            int cp = Integer.parseInt(this.txtCodigoPostal.getText());
+            String ciudad = this.txtCiudad.getText();
+            String estado = this.txtEstado.getText();
+
+            Direccion direccion = new Direccion(calle, numero, colonia, cp, ciudad, estado);
+            Cliente clienteNuevo = new Cliente(nombre, telefono, id, genero, direccion );
+            clienteSelecc = tabClientes.getSelectionModel().getSelectedItem();
+
+
+            //Comprobación de si existe
+            if(!(obsClientes.contains(clienteNuevo))){
+
+                //Editar
+                if (obsClientes.contains(clienteSelecc)){
+                    clienteSelecc.setNombre(nombre);
+                    clienteSelecc.setId(id);
+                    clienteSelecc.setTelefono(telefono);
+                    clienteSelecc.setGenero(genero);
+                    clienteSelecc.setDireccion(direccion);
+                    this.tabClientes.refresh();
+
+                    Alerta categoriaModificada = new Alerta("Categoría modificada", "La categoría ha sido modificada con éxito");
+                    categoriaModificada.mostrarAlertaInformation();
+
+                    limpiarCampos();
+
+                }
+
+
+
+                //Nuevo
+                else{
+                    this.obsClientes.add(clienteNuevo);
+
+                    Alerta agregadoCorrecto = new Alerta("Agregado correctamente", "El cliente " + this.txtNombre.getText() +" fue agregado correctamente");
+                    agregadoCorrecto.mostrarAlertaInformation();
+
+                    limpiarCampos();
+
+                    //Para evitar conflictos cuando se está buscando
+                    if (clienteNuevo.getNombre().toLowerCase().contains(this.txtBuscar.getText().toLowerCase())){
+                        this.obsBusqueda.add(clienteNuevo);
+                    }
+                    this.tabClientes.refresh();
+
+                }
+
+
+            }
+            else {
+                Alerta categoriaExiste = new Alerta("Producto ya existe", "¡Error! el producto ya existe");
+                categoriaExiste.mostrarAlertaInformation();
+            }
+
+
+        } catch (NumberFormatException | ArithmeticException e) {
+
+            Alerta alertacategoria = new Alerta("Error", "Compruebe los datos e intente nuevamente\n" + "Detalles del error: " + e.getMessage());
+            alertacategoria.mostrarAlertaError();
+
+        }finally{
+            this.tabClientes.getSelectionModel().clearSelection();
+        }
+
     }
+
+
 
     @FXML
     void clickLimpiar(ActionEvent event) {
+        limpiarCampos();
+    }
+
+    private void limpiarCampos(){
+        this.txtNombre.setText("");
+        this.txtId.setText("");
+        this.txtTelefono.setText("");
+        this.cmbGenero.setValue(null);
+        this.txtCalle.setText("");
+        this.txtNumeroDeCasa.setText("");
+        this.txtColonia.setText("");
+        this.txtCodigoPostal.setText("");
+        this.txtEstado.setText("");
+        this.txtCiudad.setText("");
 
     }
 
@@ -119,12 +234,25 @@ public class ClientesControlador implements Initializable {
         assert txtNumeroDeCasa != null : "fx:id=\"txtNumeroDeCasa\" was not injected: check your FXML file 'FXMLClientes.fxml'.";
         assert txtTelefono != null : "fx:id=\"txtTelefono\" was not injected: check your FXML file 'FXMLClientes.fxml'.";
 
-
+        iniciarDatos();
 
     }
 
 
     public void iniciarDatos(){
+        obsGeneros = FXCollections.observableArrayList("Hombre", "Mujer", "Prefiero no decir");
+        cmbGenero.setItems(obsGeneros);
+
+        obsClientes = FXCollections.observableArrayList();
+        tabClientes.setItems(obsClientes);
+
+        obsBusqueda = FXCollections.observableArrayList();
+
+        this.colNombre.setCellValueFactory((new PropertyValueFactory<>("nombre")));
+        this.colTelefono.setCellValueFactory((new PropertyValueFactory<>("telefono")));
+        this.colId.setCellValueFactory((new PropertyValueFactory<>("id")));
+        this.colGenero.setCellValueFactory((new PropertyValueFactory<>("genero")));
+        this.colDireccion.setCellValueFactory((new PropertyValueFactory<>("direccionCadena")));
 
     }
 
