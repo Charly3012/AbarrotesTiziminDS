@@ -1,13 +1,13 @@
 package Modelo;
 
 public class Direccion {
+
     private String calle;
     private int numero;
     private String colonia;
     private int CP;
     private String ciudad;
     private String estado;
-    private long telefono;
 
 
     public Direccion() {
@@ -20,7 +20,6 @@ public class Direccion {
         this.colonia = colonia;
         this.ciudad = ciudad;
         this.estado = estado;
-        this.telefono = telefono;
         this.CP = CP;
     }
 
@@ -72,11 +71,4 @@ public class Direccion {
         this.estado = estado;
     }
 
-    public long getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(long telefono) {
-        this.telefono = telefono;
-    }
 }

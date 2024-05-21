@@ -3,23 +3,18 @@ package Modelo;
 public class Cliente {
 
     private String nombre;
-    private  String apellido;
     private long telefono;
     private int ID;
     private Direccion direccion;
 
 
-    class Clientes {}
 
-
-    public Cliente(String nombre, String apellido, long telefono, int ID, Direccion direccion) {
+    public Cliente(String nombre, long telefono, int ID, Direccion direccion) {
         this.nombre = nombre;
-        this.apellido = apellido;
         this.telefono = telefono;
         this.ID = ID;
         this.direccion = direccion;
     }
-
 
     public String getNombre() {
         return nombre;
@@ -27,14 +22,6 @@ public class Cliente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
     }
 
     public long getTelefono() {
