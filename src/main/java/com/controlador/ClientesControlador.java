@@ -18,9 +18,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import modelo.Cliente;
-import modelo.Direccion;
-import modelo.Alerta;
+import com.modelo.Cliente;
+import com.modelo.Direccion;
+import com.modelo.Alerta;
 
 public class ClientesControlador implements Initializable {
 

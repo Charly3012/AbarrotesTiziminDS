@@ -15,12 +15,12 @@
    <right>
       <AnchorPane prefHeight="480.0" prefWidth="313.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtNombre" layoutX="22.0" layoutY="87.0" prefHeight="25.0" prefWidth="266.0" promptText="Ingrese el nombre de la categoria" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0">
+            <TextField fx:id="txtId" layoutX="22.0" layoutY="37.0" prefHeight="25.0" prefWidth="270.0" promptText="Ingrese el ID" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0">
                <effect>
                   <Blend />
                </effect>
             </TextField>
-            <TextField fx:id="txtId" layoutX="22.0" layoutY="37.0" prefHeight="25.0" prefWidth="270.0" promptText="Ingrese el ID" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0">
+            <TextField fx:id="txtNombre" layoutX="22.0" layoutY="87.0" prefHeight="25.0" prefWidth="266.0" promptText="Ingrese el nombre de la categoria" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="21.0">
                <effect>
                   <Blend />
                </effect>

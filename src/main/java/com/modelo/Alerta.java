@@ -1,4 +1,4 @@
-package modelo;
+package com.modelo;
 
 import javafx.scene.control.Alert;
 

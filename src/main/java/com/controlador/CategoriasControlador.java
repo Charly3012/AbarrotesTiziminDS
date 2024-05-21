@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
+import com.modelo.Alerta;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -82,7 +83,7 @@ public class CategoriasControlador implements Initializable {
         categoriaSelec = this.tabCategorias.getSelectionModel().getSelectedItem();
 
         if(categoriaSelec == null){
-            modelo.Alerta alertaNoSeleccionado = new modelo.Alerta("Error", "Debes seleccionar una categoria");
+            Alerta alertaNoSeleccionado = new Alerta("Error", "Debes seleccionar una categoria");
             alertaNoSeleccionado.mostrarAlertaError();
         }else{
             if(true){
@@ -90,13 +91,13 @@ public class CategoriasControlador implements Initializable {
                 this.obsBusqueda.remove(categoriaSelec);
                 this.tabCategorias.refresh();
 
-                modelo.Alerta alertaCategoriaEliminado = new modelo.Alerta("Categoria eliminado", "La categoria seleccionada se ha eliminado con exito");
+                Alerta alertaCategoriaEliminado = new Alerta("Categoria eliminado", "La categoria seleccionada se ha eliminado con exito");
                 alertaCategoriaEliminado.mostrarAlertaInformation();
 
                 this.tabCategorias.getSelectionModel().clearSelection();
             }
             else {
-                modelo.Alerta categoriaEnUso = new modelo.Alerta("Error al eliminar", "No es posible eliminar la categoria ya que existen productos en esta categoría");
+                Alerta categoriaEnUso = new Alerta("Error al eliminar", "No es posible eliminar la categoria ya que existen productos en esta categoría");
                 categoriaEnUso.mostrarAlertaError();
             }
 
@@ -154,7 +155,7 @@ public class CategoriasControlador implements Initializable {
                     categoriaSelec.setDescripcion(descripcion);
                     this.tabCategorias.refresh();
 
-                    modelo.Alerta categoriaModificada = new modelo.Alerta("Categoría modificada", "La categoría ha sido modificada con éxito");
+                    Alerta categoriaModificada = new Alerta("Categoría modificada", "La categoría ha sido modificada con éxito");
                     categoriaModificada.mostrarAlertaInformation();
 
                     this.txtId.setText("");
@@ -169,7 +170,7 @@ public class CategoriasControlador implements Initializable {
                 else{
                     this.obsCategorias.add(categoriaNueva);
 
-                    modelo.Alerta agregadoCorrecto = new modelo.Alerta("Agregado correctamente", "La categoría " + this.txtNombre.getText() +" fue agregado correctamente");
+                    Alerta agregadoCorrecto = new Alerta("Agregado correctamente", "La categoría " + this.txtNombre.getText() +" fue agregado correctamente");
                     agregadoCorrecto.mostrarAlertaInformation();
 
                     this.txtId.setText("");
@@ -191,14 +192,14 @@ public class CategoriasControlador implements Initializable {
 
             }
             else {
-                modelo.Alerta categoriaExiste = new modelo.Alerta("Producto ya existe", "¡Error! el producto ya existe");
+                Alerta categoriaExiste = new Alerta("Producto ya existe", "¡Error! el producto ya existe");
                 categoriaExiste.mostrarAlertaInformation();
             }
 
 
 
         } catch (NumberFormatException | ArithmeticException e) {
-            modelo.Alerta alertacategoria = new modelo.Alerta("Error", "Compruebe los datos e intente nuevamente\n" + "Detalles del error: " + e.getMessage());
+            Alerta alertacategoria = new Alerta("Error", "Compruebe los datos e intente nuevamente\n" + "Detalles del error: " + e.getMessage());
             alertacategoria.mostrarAlertaError();
         }finally{
             this.tabCategorias.getSelectionModel().clearSelection();
