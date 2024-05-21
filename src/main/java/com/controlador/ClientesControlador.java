@@ -106,6 +106,25 @@ public class ClientesControlador implements Initializable {
     @FXML
     void clickEliminar(ActionEvent event) {
 
+        //Para seleccionar un objeto
+        clienteSelecc = this.tabClientes.getSelectionModel().getSelectedItem();
+
+        if(clienteSelecc == null){
+            Alerta alertaNoSeleccionado = new Alerta("Error", "Debes seleccionar un cliente");
+            alertaNoSeleccionado.mostrarAlertaError();
+        }else{
+            this.obsClientes.remove(clienteSelecc);
+            this.obsBusqueda.remove(clienteSelecc);
+            this.tabClientes.refresh();
+
+            Alerta alertaClienteEliminado = new Alerta("Cliente eliminado", "El cliente seleccionado se ha eliminado con éxito");
+            alertaClienteEliminado.mostrarAlertaInformation();
+
+            this.tabClientes.getSelectionModel().clearSelection();
+
+        }
+
+        limpiarCampos();
     }
 
     @FXML
@@ -211,10 +230,7 @@ public class ClientesControlador implements Initializable {
 
     }
 
-    @FXML
-    void escribirBuscar(KeyEvent event) {
 
-    }
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -328,5 +344,24 @@ public class ClientesControlador implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public void buscarEscri(KeyEvent keyEvent) {
+        String busqueda = this.txtBuscar.getText();
+
+        if(busqueda.isEmpty()){
+            this.tabClientes.setItems(obsClientes);
+        }
+        else{
+            this.obsBusqueda.clear();
+            for (Cliente clienteBuscar : this.obsClientes){
+                if(clienteBuscar.getNombre().toLowerCase().contains(busqueda.toLowerCase())){
+                    this.obsBusqueda.add(clienteBuscar);
+                }
+            }
+            this.tabClientes.setItems(obsBusqueda);
+        }
+
     }
 }

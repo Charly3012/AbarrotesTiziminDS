@@ -17,7 +17,7 @@
          <children>
             <Label layoutX="23.0" layoutY="14.0" text="Gestion de clientes" />
             <Label layoutX="23.0" layoutY="41.0" text="Buscar: " />
-            <TextField fx:id="txtBuscar" layoutX="86.0" layoutY="37.0" onKeyTyped="#escribirBuscar" prefHeight="24.0" prefWidth="461.0" promptText="Buscar por nombre" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="307.0" />
+            <TextField fx:id="txtBuscar" layoutX="86.0" layoutY="37.0" onKeyReleased="#buscarEscri" prefHeight="24.0" prefWidth="461.0" promptText="Buscar por nombre" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="307.0" />
          </children>
       </AnchorPane>
    </top>
