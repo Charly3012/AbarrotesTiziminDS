@@ -46,9 +46,6 @@ public class MenuControlador {
             stage.setOnCloseRequest(e -> controladorCategorias.cerrarVentana());
             Stage myStage = (Stage) this.btnInventario.getScene().getWindow();
             myStage.close();
-
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -57,6 +54,21 @@ public class MenuControlador {
     @FXML
     void clickClientes(MouseEvent event) {
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLClientes.fxml"));
+            Parent root = loader.load();
+            ClientesControlador clientesControlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Clientes");
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e -> clientesControlador.cerrarVentana());
+            Stage myStage = (Stage) this.btnClientes.getScene().getWindow();
+            myStage.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

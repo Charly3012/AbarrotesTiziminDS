@@ -8,7 +8,9 @@ public class ControladorPrincipalSingleton {
 
 
 
+
     private ControladorPrincipalSingleton(){
+
         //Aquí dentro ponen la instancia de cada controlador
         //Ejemplo this.controladorInventarios = new ControladorInventarios()
         //Obviamente tienen que primero hacer el constructor de su clase controladora respectiva
@@ -30,4 +32,10 @@ public class ControladorPrincipalSingleton {
     public CategoriasControlador getCategoriasControlador() {
         return categoriasControlador;
     }
+
+
 }
+
+
+
+
