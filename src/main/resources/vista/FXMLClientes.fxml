@@ -17,7 +17,7 @@
          <children>
             <Label layoutX="23.0" layoutY="14.0" text="Gestion de clientes" />
             <Label layoutX="23.0" layoutY="41.0" text="Buscar: " />
-            <TextField fx:id="txtBuscar" layoutX="86.0" layoutY="37.0" onKeyTyped="#escribirBuscar" prefHeight="24.0" prefWidth="470.0" promptText="Buscar por nombre" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="298.0" />
+            <TextField fx:id="txtBuscar" layoutX="86.0" layoutY="37.0" onKeyTyped="#escribirBuscar" prefHeight="24.0" prefWidth="461.0" promptText="Buscar por nombre" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="307.0" />
          </children>
       </AnchorPane>
    </top>
@@ -56,7 +56,7 @@
       </AnchorPane>
    </right>
    <center>
-      <TableView fx:id="tabClientes" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tabClientes" onMouseClicked="#clickSeleccionar" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="colId" prefWidth="53.0" text="ID" />
           <TableColumn fx:id="colNombre" prefWidth="111.0" text="Nombre" />

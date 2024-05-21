@@ -1,7 +1,8 @@
 package com.controlador;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modelo.Cliente;
 import modelo.Direccion;
@@ -205,6 +207,7 @@ public class ClientesControlador implements Initializable {
         this.txtCodigoPostal.setText("");
         this.txtEstado.setText("");
         this.txtCiudad.setText("");
+        this.tabClientes.getSelectionModel().clearSelection();
 
     }
 
@@ -235,7 +238,7 @@ public class ClientesControlador implements Initializable {
         assert txtTelefono != null : "fx:id=\"txtTelefono\" was not injected: check your FXML file 'FXMLClientes.fxml'.";
 
         iniciarDatos();
-
+        persistenciaLeer();
     }
 
 
@@ -276,7 +279,54 @@ public class ClientesControlador implements Initializable {
             throw new RuntimeException(e);
         }
 
+        persistenciaEscribir();
+
     }
 
 
+    public void clickSeleccionar(MouseEvent mouseEvent) {
+        clienteSelecc = tabClientes.getSelectionModel().getSelectedItem();
+        if(clienteSelecc != null){
+            this.txtNombre.setText(clienteSelecc.getNombre());
+            this.txtId.setText(clienteSelecc.getId() + "");
+            this.txtTelefono.setText(clienteSelecc.getTelefono() + "");
+            this.cmbGenero.setValue(clienteSelecc.getGenero());
+            this.txtCalle.setText(clienteSelecc.getDireccion().getCalle());
+            this.txtNumeroDeCasa.setText(clienteSelecc.getDireccion().getNumero() + "");
+            this.txtColonia.setText(clienteSelecc.getDireccion().getColonia());
+            this.txtCodigoPostal.setText(clienteSelecc.getDireccion().getCP() + "");
+            this.txtEstado.setText(clienteSelecc.getDireccion().getEstado());
+            this.txtCiudad.setText(clienteSelecc.getDireccion().getCiudad());
+
+        }
+    }
+
+    public void persistenciaLeer(){
+        File comprobracionExist = new File("src/main/resources/persistencia/clientes.cja");
+
+        if(comprobracionExist.exists()){
+            //Persistencia - Leer el archivo de datos
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/clientes.cja"));
+                ArrayList<Cliente> clientesGuardar = (ArrayList<Cliente>) ois.readObject();
+                obsClientes.addAll(clientesGuardar);
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+
+    public void persistenciaEscribir(){
+        //Persistencia - Guardar los datos en un archivo
+        ArrayList<Cliente> clientesGuardar= new ArrayList<Cliente>(obsClientes);
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/resources/persistencia/clientes.cja"));
+            oos.writeObject(clientesGuardar);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
