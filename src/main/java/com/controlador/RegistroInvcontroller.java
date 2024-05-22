@@ -17,6 +17,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 public class RegistroInvcontroller  {
 
 
@@ -44,6 +46,10 @@ public class RegistroInvcontroller  {
     public TextField identificadorField;
     @FXML
     public TextField nombreField;
+    @FXML
+    public TextField BuscarF;
+    @FXML
+    public Button btnBuscar;
     private ObservableList<Producto> productoData = FXCollections.observableArrayList();
 
     @FXML
@@ -122,4 +128,71 @@ public class RegistroInvcontroller  {
 
 
     }
+
+    @FXML
+    public void BuscarProduct(ActionEvent actionEvent) {
+        try {
+            FilteredList<Producto> filteredData = new FilteredList<>(productoData, p -> true);
+
+            BuscarF.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(producto -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (producto.getIdentificador().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (producto.getNombre().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (producto.getCantidad().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+
+                    return false;
+                });
+            });
+
+            SortedList<Producto> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tblProductos.comparatorProperty());
+
+            tblProductos.setItems(sortedData);
+        } catch (Exception e) {
+            mostrarAlerta("Error en la búsqueda", "Hubo un error al configurar la funcionalidad de búsqueda.", e);
+        }
+    }
+
+    /*private void setupSearchFunctionality() {
+        try {
+            FilteredList<Producto> filteredData = new FilteredList<>(productoData, p -> true);
+
+            BuscarF.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredData.setPredicate(producto -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    if (producto.getIdentificador().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (producto.getNombre().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    } else if (producto.getCantidad().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+
+                    return false;
+                });
+            });
+
+            SortedList<Producto> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tblProductos.comparatorProperty());
+
+            tblProductos.setItems(sortedData);
+        } catch (Exception e) {
+            mostrarAlerta("Error en la búsqueda", "Hubo un error al configurar la funcionalidad de búsqueda.", e);
+        }
+    }*/
 }

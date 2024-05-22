@@ -2,7 +2,7 @@ package Modelo;
 
 public class PUnidad implements Producto{
     private String identificador;
-    private double precioVenta;
+    private double precioventa;
     private String nombre;
     private double precioProveedor;
     private int cantidadUnidad;
@@ -30,12 +30,12 @@ public class PUnidad implements Producto{
 
     @Override
     public void setPrecioVenta(double precioventa) {
-        this.precioVenta = precioVenta;
+        this.precioventa = precioventa;
     }
 
     @Override
     public double getPrecioVenta() {
-        return precioVenta;
+        return precioventa;
     }
 
     @Override
