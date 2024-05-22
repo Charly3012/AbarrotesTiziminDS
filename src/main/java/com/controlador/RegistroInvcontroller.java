@@ -108,7 +108,7 @@ public class RegistroInvcontroller  {
 
             tblProductos.setItems(productoData);
         }catch (Exception e){
-            mostrarAlerta("Error en la inicialización", "Hubo un error al inicializar la tabla o el ChoiceBox.", e);
+            mostrarAlerta("Error en la inicialización", "Hubo un error al inicializar la tabla .", e);
         }
     }
 
