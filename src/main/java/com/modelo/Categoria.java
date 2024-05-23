@@ -52,4 +52,5 @@ public class Categoria implements Serializable {
         return Objects.hash(id, nombre, descripcion);
     }
 
+
 }

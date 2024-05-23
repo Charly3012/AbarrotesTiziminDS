@@ -10,4 +10,5 @@ module com.abarrotestizimin.abarrotestizimin {
     exports com.controlador;
     opens com.controlador to javafx.fxml;
     exports com.modelo;
+
 }
