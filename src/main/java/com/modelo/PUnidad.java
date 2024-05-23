@@ -1,4 +1,4 @@
-package modelo;
+package com.modelo;
 
 public class PUnidad implements Producto{
     private String identificador;

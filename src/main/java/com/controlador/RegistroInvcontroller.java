@@ -1,8 +1,8 @@
 package com.controlador;
 
 import javafx.stage.Stage;
-import modelo.Producto;
-import modelo.ProductoFactory;
+import com.modelo.Producto;
+import com.modelo.ProductoFactory;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

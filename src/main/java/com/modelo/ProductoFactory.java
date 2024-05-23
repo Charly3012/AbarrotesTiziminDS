@@ -1,4 +1,4 @@
-package modelo;
+package com.modelo;
 
 public class ProductoFactory {
     public static Producto crearProducto(String tipoCantidad) {
