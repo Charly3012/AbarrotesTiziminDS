@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -17,32 +18,38 @@
             <TextField fx:id="BuscarF" prefHeight="25.0" prefWidth="192.0" promptText="Buscar Producto" HBox.hgrow="ALWAYS" />
             <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#BuscarProduct" text="Buscar" />
          </HBox>
-         <HBox spacing="10.0">
+         <HBox prefHeight="81.0" prefWidth="584.0" spacing="10.0">
             <VBox prefHeight="47.0" prefWidth="120.0" spacing="5.0">
                <Label text="Identificador" />
                <TextField fx:id="identificadorField" />
             </VBox>
-            <VBox prefHeight="47.0" prefWidth="90.0" spacing="5.0">
+            <VBox prefHeight="77.0" prefWidth="109.0" spacing="5.0">
                <Label text="Nombre" />
                <TextField fx:id="nombreField" />
             </VBox>
             <VBox spacing="5.0">
                <Label text="Precio Venta" />
-               <TextField fx:id="precioVentaField" />
+               <TextField fx:id="precioVentaField" prefHeight="25.0" prefWidth="112.0" />
             </VBox>
             <VBox prefHeight="47.0" prefWidth="125.0" spacing="5.0">
                <Label text="Precio Proveedor" />
                <TextField fx:id="precioProveedorField" />
             </VBox>
-            <VBox prefHeight="47.0" prefWidth="89.0" spacing="5.0">
+            <VBox prefHeight="77.0" prefWidth="105.0" spacing="5.0">
                <Label text="Cantidad" />
                <TextField fx:id="cantidadField" />
             </VBox>
-            <VBox prefHeight="47.0" prefWidth="48.0" spacing="5.0">
+            <VBox alignment="TOP_CENTER" prefHeight="47.0" prefWidth="48.0" spacing="5.0">
                <Label prefHeight="17.0" prefWidth="48.0" text="Tipo" />
                <ChoiceBox fx:id="tipoCantidadChoiceBox" prefHeight="25.0" prefWidth="65.0" />
             </VBox>
-            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardar" text="Guardar producto" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Categorias" />
+                  <ComboBox fx:id="cmbCategoria" prefWidth="150.0" />
+               </children>
+            </VBox>
+            <Button fx:id="btnGuardar" alignment="BASELINE_CENTER" mnemonicParsing="false" onAction="#guardar" text="Guardar producto" />
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#clickEliminar" text="X" />
          </HBox>
          <TableView fx:id="tblProductos" prefHeight="261.0" prefWidth="562.0" VBox.vgrow="ALWAYS">

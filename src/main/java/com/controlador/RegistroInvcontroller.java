@@ -1,5 +1,7 @@
 package com.controlador;
 
+import com.modelo.Categoria;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import com.modelo.Producto;
 import com.modelo.ProductoFactory;
@@ -9,12 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -55,6 +51,11 @@ public class RegistroInvcontroller  {
     public Button btnBuscar;
     @FXML
     public Button btnEliminar;
+    @FXML
+    public ComboBox cmbCategoria;
+
+    @FXML
+    public ObservableList<String> categorias;
     private ObservableList<Producto> productoData = FXCollections.observableArrayList();
 
     @FXML
@@ -71,12 +72,7 @@ public class RegistroInvcontroller  {
            String cantidad = cantidadField.getText();
            String tipoCantidad = tipoCantidadChoiceBox.getValue();
 
-       /* Producto producto;
-        if (tipoCantidad.equals("Agranel")) {
-            producto = new PAgranel();
-        } else {
-            producto = new PUnidad();
-        }*/
+
            Producto producto = ProductoFactory.crearProducto(tipoCantidad);
            if (producto != null) {
 
@@ -99,6 +95,7 @@ public class RegistroInvcontroller  {
 
     @FXML
     private void initialize() {
+
         try {
 
             //Initialize the table columns.
@@ -118,6 +115,8 @@ public class RegistroInvcontroller  {
             mostrarAlerta("Error en la inicialización", "Hubo un error al inicializar la tabla.", e);
         }
 
+
+        cargarCategorias();
         persistenciaLeer();
     }
 
@@ -239,6 +238,37 @@ public class RegistroInvcontroller  {
             oos.writeObject(productosGuardar);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void cargarCategorias(){
+
+
+        File controlExistencia = new File("src/main/resources/persistencia/categorias.cja");
+
+        productoData = FXCollections.observableArrayList();
+
+        if(controlExistencia.exists()){
+            //Persistencia - Leer el archivo de datos de la categoría
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/categorias.cja"));
+                ArrayList<Categoria> categoriasGuardar = (ArrayList<Categoria>) ois.readObject();
+
+                for (Categoria categoria : categoriasGuardar) {
+                    categorias.add(categoria.getNombre());
+                }
+
+                // Llenar el ComboBox con los nombres de categorías
+                cmbCategoria.setItems(productoData);
+
+            } catch (IOException | ClassNotFoundException e) {
+                /*Alerta errorCategorias = new Alerta("Error de carga", "Error al cargar las categorías.\n" + "Detalles: " + e.getMessage());
+                errorCategorias.mostrarAlertaError();*/
+            }
+
+
+
+
         }
     }
 
