@@ -25,7 +25,7 @@ Abarrotes Tizimin es un software de ventas desarrollado en Java y JavaFX para la
 
 1. Clona este repositorio:
     ```bash
-    git clone https://github.com/tu-usuario/abarrotes-tizimin.git
+    git clone https://Charly3012/abarrotes-tizimin.git
     ```
 
 2. Importa el proyecto en tu IDE de preferencia (por ejemplo, IntelliJ IDEA o Eclipse).
