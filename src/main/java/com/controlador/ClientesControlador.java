@@ -25,6 +25,8 @@ import com.modelo.Alerta;
 public class ClientesControlador implements Initializable {
 
 
+
+
     @FXML
     private ComboBox<String> cmbGenero;
 
@@ -125,6 +127,7 @@ public class ClientesControlador implements Initializable {
         }
 
         limpiarCampos();
+        persistenciaEscribir();
     }
 
     @FXML
@@ -206,6 +209,8 @@ public class ClientesControlador implements Initializable {
             this.tabClientes.getSelectionModel().clearSelection();
         }
 
+        persistenciaEscribir();
+
     }
 
 
@@ -279,23 +284,19 @@ public class ClientesControlador implements Initializable {
 
     public void cerrarVentana(){
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLMenu.fxml"));
-            Parent root = loader.load();
-            MenuControlador controlador = loader.getController();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("Abarrotes Tizimin");
-            stage.setScene(scene);
-            stage.show();
-
-            Stage myStage = (Stage) this.btnEliminar.getScene().getWindow();
+        if (this.tabClientes != null && this.tabClientes.getScene() != null) {
+            Stage myStage = (Stage) this.tabClientes.getScene().getWindow();
             myStage.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } else {
+            System.err.println("Error: TableView o su escena es null.");
         }
 
-        persistenciaEscribir();
+        // Mostrar la ventana principal de nuevo
+        Stage menuStage = ControladorPrincipalSingleton.getInstancia().getMenuStage();
+        if (menuStage != null) {
+            menuStage.show();
+        }
+
 
     }
 
@@ -337,7 +338,7 @@ public class ClientesControlador implements Initializable {
 
     public void persistenciaEscribir(){
         //Persistencia - Guardar los datos en un archivo
-        ArrayList<Cliente> clientesGuardar= new ArrayList<Cliente>(obsClientes);
+        ArrayList<Cliente> clientesGuardar = new ArrayList<Cliente>(obsClientes);
         try{
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/resources/persistencia/clientes.cja"));
             oos.writeObject(clientesGuardar);

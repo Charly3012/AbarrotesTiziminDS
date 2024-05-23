@@ -79,6 +79,8 @@ public class CategoriasControlador implements Initializable {
 
     @FXML
     void clickEliminar(ActionEvent event) {
+
+
         //Para seleccionar un objeto
         categoriaSelec = this.tabCategorias.getSelectionModel().getSelectedItem();
 
@@ -106,6 +108,8 @@ public class CategoriasControlador implements Initializable {
         this.txtId.setText("");
         this.txtNombre.setText("");
         this.txtDescripcion.setText("");
+
+        persistenciaEscribir();
 
     }
 
@@ -205,8 +209,7 @@ public class CategoriasControlador implements Initializable {
             this.tabCategorias.getSelectionModel().clearSelection();
         }
 
-
-
+        persistenciaEscribir();
     }
 
     @FXML
@@ -277,26 +280,21 @@ public class CategoriasControlador implements Initializable {
     }
 
     public void cerrarVentana() {
-        persistenciaEscribir();
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLMenu.fxml"));
-            Parent root = loader.load();
-            MenuControlador controlador = loader.getController();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("Abarrotes Tizimin");
-            stage.setScene(scene);
-            stage.show();
-
-            Stage myStage = (Stage) this.borderPane.getScene().getWindow();
+        // Obtener la instancia del stage principal desde la ventana oculta
+        if (this.txtId != null && this.txtId.getScene() != null) {
+            Stage myStage = (Stage) this.txtId.getScene().getWindow();
             myStage.close();
-
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } else {
+            System.err.println("Error: TableView o su escena es null.");
         }
+
+        // Mostrar la ventana principal de nuevo
+        Stage menuStage = ControladorPrincipalSingleton.getInstancia().getMenuStage();
+        if (menuStage != null) {
+            menuStage.show();
+        }
+
     }
 
     @FXML
