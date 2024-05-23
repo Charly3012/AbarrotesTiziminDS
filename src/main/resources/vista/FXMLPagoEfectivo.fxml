@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="454.0" prefWidth="464.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controlador.ControladorPagar">
+<AnchorPane prefHeight="454.0" prefWidth="464.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.controlador.ControladorPagarEfectivo">
    <Button fx:id="btnCobrar" layoutX="149.0" layoutY="389.0" mnemonicParsing="false" onAction="#CobraryGenerar" text="Cobrar y generar nota " />
    <ImageView fitHeight="86.0" fitWidth="100.0" layoutX="189.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../imagenes/notas.png" />
+      <Image url="@../imagenes/imgNota.png" />
    </ImageView>
    <Label layoutX="16.0" layoutY="20.0" text="Resumen de pago" />
    <AnchorPane layoutX="25.0" layoutY="60.0" prefHeight="214.0" prefWidth="415.0">

@@ -17,13 +17,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.modelo.*;
-import com.controlador.*;
 
-import javax.lang.model.type.ArrayType;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -45,6 +42,12 @@ public class ControladorRegistroVentas implements Initializable {
 
     @FXML
     public Label labHoraMostrar;
+
+    @FXML
+    public ComboBox cmbPago;
+
+    @FXML
+    public ObservableList<String> obsPago;
 
     @FXML
     private AnchorPane anchorDetalleVenta;
@@ -182,6 +185,12 @@ public class ControladorRegistroVentas implements Initializable {
         this.colCantidadDv.setCellFactory(TextFieldTableCell.forTableColumn());
 
         this.tblDetalleVenta.setItems(obsProducDetalle);
+
+        //Método de pago
+        obsPago = FXCollections.observableArrayList("Paypal", "Efectivo");
+        this.cmbPago.setItems(obsPago);
+        this.cmbPago.setValue("Efectivo");
+
     }
 
     @FXML
@@ -344,18 +353,37 @@ public class ControladorRegistroVentas implements Initializable {
     @FXML
     void clickPagar(ActionEvent event) throws IOException {
 
+       //aquí es donde se usa el patron de diseño Strategy
+
         try{
             if(clienteCompra != null){
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
-                Parent root = loader.load();
-                ControladorPagar controlador = loader.getController();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(scene);
-                stage.showAndWait();
+                if(cmbPago.getSelectionModel().getSelectedItem().equals("Efectivo")) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLPagoEfectivo.fxml"));
+                    Parent root = loader.load();
+                    ControladorPagarEfectivo controlador = loader.getController();
+                    controlador.setProduc(obsProducDetalle);
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(scene);
+                    stage.showAndWait();
 
-                //controlador.setProduc(obsProducDetalle);
+
+                }else{
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLPagoPaypal.fxml"));
+                    Parent root = loader.load();
+                    ControladorPagarPaypal controlador = loader.getController();
+                    controlador.setProduc(obsProducDetalle);
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(scene);
+                    stage.showAndWait();
+
+                }
+
+
                 //Genera el objeto venta
                 ArrayList<DatosVenta> aux = new ArrayList<>(obsProducDetalle);
 
@@ -377,9 +405,6 @@ public class ControladorRegistroVentas implements Initializable {
                             System.out.println(productoAct.getCantidadNeta());
                             //System.out.println("ola");
                         }
-
-
-
 
                     }
                 }

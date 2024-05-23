@@ -1,5 +1,8 @@
 package com.controlador;
 
+import com.modelo.Alerta;
+import com.modelo.MetodoPagoContexto;
+import com.modelo.PagoStrategyEfectivo;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +16,7 @@ import com.modelo.DatosVenta;
 
 import java.util.ArrayList;
 
-public class ControladorPagar {
+public class ControladorPagarEfectivo {
 
 
 
@@ -41,6 +44,12 @@ public class ControladorPagar {
 
     @FXML
     public void CobraryGenerar(ActionEvent actionEvent) {
+        MetodoPagoContexto contexto = new MetodoPagoContexto();
+        contexto.setMetodoPagoStrategy(new PagoStrategyEfectivo(Double.parseDouble(txtPago.getText())));
+
+        Alerta alerta = new Alerta("Pago confirmado", "Su pago con efectivo se ha realizado correctamente");
+        alerta.mostrarAlertaInformation();
+
         Stage stage = (Stage) btnCobrar.getScene().getWindow();
         stage.close();
 
@@ -73,6 +82,7 @@ public class ControladorPagar {
             alert.setTitle("Errror");
             alert.setContentText("Formato incorrecto");
             alert.showAndWait();
+
 
         }
 

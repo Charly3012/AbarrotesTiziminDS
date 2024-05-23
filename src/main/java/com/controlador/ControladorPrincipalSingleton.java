@@ -8,7 +8,7 @@ public class ControladorPrincipalSingleton {
     private RegistroInvcontroller registroInvcontroller;
     private ClientesControlador clientesControlador;
     private ControladorRegistroVentas controladorRegistroVentas;
-    private ControladorPagar controladorPagar;
+    private ControladorPagarEfectivo controladorPagarEfectivo;
 
     private Stage menuStage;
   
@@ -17,7 +17,7 @@ public class ControladorPrincipalSingleton {
         this.clientesControlador = new ClientesControlador();
         this.registroInvcontroller = new RegistroInvcontroller();
         this.controladorRegistroVentas = new ControladorRegistroVentas();
-        this.controladorPagar = new ControladorPagar();
+        this.controladorPagarEfectivo = new ControladorPagarEfectivo();
     }
 
     private static final ControladorPrincipalSingleton instancia = new ControladorPrincipalSingleton();
@@ -43,8 +43,8 @@ public class ControladorPrincipalSingleton {
         return controladorRegistroVentas;
     }
 
-    public ControladorPagar getControladorPagar(){
-        return controladorPagar;
+    public ControladorPagarEfectivo getControladorPagar(){
+        return controladorPagarEfectivo;
     }
 
     public void setMenuStage(Stage stage) {
