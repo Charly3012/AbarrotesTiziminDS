@@ -43,6 +43,7 @@
                <ChoiceBox fx:id="tipoCantidadChoiceBox" prefHeight="25.0" prefWidth="65.0" />
             </VBox>
             <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardar" text="Guardar producto" />
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#clickEliminar" text="X" />
          </HBox>
          <TableView fx:id="tblProductos" prefHeight="261.0" prefWidth="562.0" VBox.vgrow="ALWAYS">
             <columns>

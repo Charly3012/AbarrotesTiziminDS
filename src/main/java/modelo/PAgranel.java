@@ -1,4 +1,4 @@
-package Modelo;
+package modelo;
 
 public class PAgranel implements Producto{
     private String identificador;

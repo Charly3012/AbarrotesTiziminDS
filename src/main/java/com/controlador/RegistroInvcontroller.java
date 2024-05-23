@@ -1,9 +1,9 @@
 package com.controlador;
 
-import Modelo.Producto;
-import Modelo.PAgranel;
-import Modelo.PUnidad;
-import Modelo.ProductoFactory;
+import modelo.Producto;
+import modelo.PAgranel;
+import modelo.PUnidad;
+import modelo.ProductoFactory;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -50,6 +50,8 @@ public class RegistroInvcontroller  {
     public TextField BuscarF;
     @FXML
     public Button btnBuscar;
+    @FXML
+    public Button btnEliminar;
     private ObservableList<Producto> productoData = FXCollections.observableArrayList();
 
     @FXML
@@ -160,6 +162,31 @@ public class RegistroInvcontroller  {
             tblProductos.setItems(sortedData);
         } catch (Exception e) {
             mostrarAlerta("Error en la búsqueda", "Hubo un error al configurar la funcionalidad de búsqueda.", e);
+        }
+    }
+    @FXML
+    void clickEliminar(ActionEvent event) {
+        // Obtener el producto seleccionado
+        Producto productoSelecc = tblProductos.getSelectionModel().getSelectedItem();
+
+        if (productoSelecc == null) {
+            // Mostrar alerta si no se ha seleccionado ningún producto
+            Alert alertaNoSeleccionado = new Alert(Alert.AlertType.ERROR);
+            alertaNoSeleccionado.setTitle("Error");
+            alertaNoSeleccionado.setContentText("Debes seleccionar un producto");
+            alertaNoSeleccionado.showAndWait();
+        } else {
+            // Eliminar el producto de la lista
+            productoData.remove(productoSelecc);
+
+            // Limpiar selección en la tabla
+            tblProductos.getSelectionModel().clearSelection();
+
+            // Mostrar alerta de éxito
+            Alert alertaProductoEliminado = new Alert(Alert.AlertType.INFORMATION);
+            alertaProductoEliminado.setTitle("Producto eliminado");
+            alertaProductoEliminado.setContentText("El producto seleccionado se ha eliminado con éxito");
+            alertaProductoEliminado.showAndWait();
         }
     }
 
