@@ -131,4 +131,6 @@ public class DatosVenta implements Serializable, Producto {
     public void setCantidadNetalocal(String cantidadNetalocal) {
         this.cantidadNetalocal = cantidadNetalocal;
     }
+
+
 }

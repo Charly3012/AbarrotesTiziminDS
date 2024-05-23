@@ -9,6 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
@@ -17,10 +20,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.modelo.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 
@@ -350,6 +363,8 @@ public class ControladorRegistroVentas implements Initializable {
 
     }
 
+
+
     @FXML
     void clickPagar(ActionEvent event) throws IOException {
 
@@ -391,6 +406,62 @@ public class ControladorRegistroVentas implements Initializable {
                 Venta nuevaVenta = new Venta(clienteCompra.getTelefono(), precioCompraTotal, fecha, aux);
                 ventas.add(nuevaVenta);
 
+
+                //Generar archivo pdf
+                try {
+                    ArrayList<Producto> productos = new ArrayList<>(obsProducDetalle);
+                    Cliente clientenota = ControladorPrincipalSingleton.getInstancia().getClientesControlador().buscarCliente(clienteCompra.getTelefono());
+
+                    LocalDateTime fechaHoraActual = LocalDateTime.now();
+
+                    // Define el formato de la fecha y hora
+                    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+                    // Formatea la fecha y hora actual y guárdalas en un String
+                    String fechaHoraActualString = fechaHoraActual.format(formato);
+
+                    PDDocument documento = new PDDocument();
+                    PDPage pagina = new PDPage(PDRectangle.A6);
+                    documento.addPage(pagina);
+                    PDPageContentStream contenido = new PDPageContentStream(documento, pagina);
+
+                    contenido.beginText();
+                    contenido.setFont(PDType1Font.TIMES_BOLD, 12); //Caracteristicas de la letra
+
+                    contenido.newLineAtOffset(80, 400);
+                    contenido.showText("=ABARROTES TIZIMÍN=");
+                    contenido.newLineAtOffset(0, -20);
+                    contenido.showText("    Fecha: " + String.format(String.valueOf(fechaHoraActualString)));
+                    contenido.newLineAtOffset(-60, -20);
+                    contenido.showText("Nombre del cliente: " + clientenota.getNombre());
+                    contenido.newLineAtOffset(0, -13);
+                    contenido.showText("ID del cliente: " + clientenota.getId());
+                    contenido.newLineAtOffset(0, -20);
+                    contenido.showText(".:| Artículos |:.");
+
+                    for (int i = 0; i < aux.size(); i++) {
+                        contenido.newLineAtOffset(0, -20);
+                        contenido.showText("Producto: " + aux.get(i).getNombreVista());
+                        contenido.newLineAtOffset(0, -13);
+                        contenido.showText("Cantidad: " + aux.get(i).getCantidad());
+                        contenido.newLineAtOffset(0, -13);
+                        contenido.showText("Precio: $" + aux.get(i).getPrecioUnitario());
+                    }
+
+                    contenido.newLineAtOffset(0, -25);
+                    contenido.showText("Subtotal: $" + precioCompraTotal);
+
+                    contenido.newLineAtOffset(0, -13);
+                    contenido.showText("Total: $" + (precioCompraTotal));
+                    contenido.endText();
+
+                    contenido.close();
+                    documento.save("src/main/resources/Ticket/ticket.pdf");
+                    //File path = new File("src/resources/Ticket/ticket.pdf");
+                    //Desktop.getDesktop().open(path);
+
+
+
                 //Para disminuir el inventario
                 ArrayList<Producto> nuevoInventario = new ArrayList<>(obsProductos);
                 ArrayList<Producto> inventarioGuardar = new ArrayList<>();
@@ -416,6 +487,17 @@ public class ControladorRegistroVentas implements Initializable {
 
                 obsProducDetalle.removeAll(obsProducDetalle);
                 tblDetalleVenta.refresh();
+
+
+
+
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Error");
+                    alert.setContentText("Error: " + e.getMessage());
+                    alert.showAndWait();
+                }
 
             }
 

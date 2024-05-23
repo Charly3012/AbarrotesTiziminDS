@@ -5,6 +5,8 @@ module com.abarrotestizimin.abarrotestizimin {
 
     requires org.kordamp.bootstrapfx.core;
     requires java.compiler;
+    requires org.apache.pdfbox;
+    requires java.desktop;
 
     opens com to javafx.fxml;
     exports com;
