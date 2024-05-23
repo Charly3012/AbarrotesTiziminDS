@@ -4,9 +4,10 @@ public class PAgranel implements Producto{
     private String identificador;
     private double precioventa;
     private String nombre;
+    private String categoria;
     private double precioProveedor;
     private double cantidadAgranel;
-
+    private String cantidadNeta = String.valueOf(cantidadAgranel);
 
     @Override
     public void setIdentificador(String identificador) {
@@ -56,5 +57,30 @@ public class PAgranel implements Producto{
     @Override
     public String getCantidad() {
         return String.valueOf(cantidadAgranel);
+    }
+
+    @Override
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getCategoria(){
+        return categoria;
+    }
+
+    public void setCantidadNeta(){
+        this.cantidadNeta = String.valueOf(cantidadAgranel);
+    }
+
+    public String getCantidadNeta(){
+        return cantidadNeta;
+    }
+
+    public void setCantidadNeta(double cantidadNeta){
+        this.cantidadNeta = String.valueOf(cantidadNeta);
+    }
+
+    public void actualizarInventario(){
+        this.cantidadAgranel = Double.parseDouble(cantidadNeta);
     }
 }

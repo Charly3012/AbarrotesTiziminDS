@@ -70,6 +70,7 @@ public class RegistroInvcontroller  {
            String identificador = identificadorField.getText();
            double precioVenta = Double.parseDouble(precioVentaField.getText());
            String nombre = nombreField.getText();
+           String categoria = this.cmbCategoria.getSelectionModel().getSelectedItem() + "";
            double precioProveedor = Double.parseDouble(precioProveedorField.getText());
            String cantidad = cantidadField.getText();
            String tipoCantidad = tipoCantidadChoiceBox.getValue();
@@ -83,6 +84,8 @@ public class RegistroInvcontroller  {
                producto.setNombre(nombre);
                producto.setPrecioProveedor(precioProveedor);
                producto.setCantidad(cantidad);
+               producto.setCategoria(categoria);
+               producto.setCantidadNeta();
 
                productoData.add(producto);
            }
@@ -119,7 +122,7 @@ public class RegistroInvcontroller  {
 
 
         cargarCategorias();
-        persistenciaLeer();
+        //persistenciaLeer();
     }
 
     private void mostrarAlerta(String titulo, String contenido, Exception e) {

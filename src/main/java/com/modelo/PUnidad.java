@@ -4,8 +4,11 @@ public class PUnidad implements Producto{
     private String identificador;
     private double precioventa;
     private String nombre;
+    private String categoria;
     private double precioProveedor;
     private int cantidadUnidad;
+
+    private String cantidadNeta;
 
 
     @Override
@@ -56,5 +59,31 @@ public class PUnidad implements Producto{
     @Override
     public String getCantidad() {
         return String.valueOf(cantidadUnidad);
+    }
+
+    @Override
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCantidadNeta(){
+        this.cantidadNeta = String.valueOf(cantidadUnidad);
+    }
+
+    public String getCantidadNeta(){
+        return cantidadNeta;
+    }
+
+    public void setCantidadNeta(double cantidadNeta) {
+        this.cantidadNeta = String.valueOf(cantidadNeta);
+    }
+
+    public void actualizarInventario(){
+        this.cantidadUnidad = Integer.parseInt(cantidadNeta);
     }
 }
