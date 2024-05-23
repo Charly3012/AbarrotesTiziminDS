@@ -33,7 +33,7 @@ public class ControladorPrincipalSingleton {
     }
 
     public ClientesControlador getClientesControlador(){
-      return clientesControlador
+      return clientesControlador;
     }
 
     public void setMenuStage(Stage stage) {

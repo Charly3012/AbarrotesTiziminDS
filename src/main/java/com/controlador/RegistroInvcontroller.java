@@ -56,6 +56,8 @@ public class RegistroInvcontroller  {
 
     @FXML
     public ObservableList<String> categorias;
+
+    @FXML
     private ObservableList<Producto> productoData = FXCollections.observableArrayList();
 
     @FXML
@@ -246,7 +248,7 @@ public class RegistroInvcontroller  {
 
         File controlExistencia = new File("src/main/resources/persistencia/categorias.cja");
 
-        productoData = FXCollections.observableArrayList();
+        categorias = FXCollections.observableArrayList();
 
         if(controlExistencia.exists()){
             //Persistencia - Leer el archivo de datos de la categoría
@@ -259,7 +261,7 @@ public class RegistroInvcontroller  {
                 }
 
                 // Llenar el ComboBox con los nombres de categorías
-                cmbCategoria.setItems(productoData);
+                cmbCategoria.setItems(categorias);
 
             } catch (IOException | ClassNotFoundException e) {
                 /*Alerta errorCategorias = new Alerta("Error de carga", "Error al cargar las categorías.\n" + "Detalles: " + e.getMessage());
