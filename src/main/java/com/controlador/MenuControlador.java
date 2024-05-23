@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 public class MenuControlador {
 
+
+
+
     @FXML
     private ResourceBundle resources;
 
@@ -31,21 +34,34 @@ public class MenuControlador {
     @FXML
     private AnchorPane btnVentas;
 
+
     @FXML
     void clickCategorias(MouseEvent event) {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLCategorias.fxml"));
             Parent root = loader.load();
-            CategoriasControlador controladorCategorias = loader.getController();
+
+            // Obtener el controlador del Singleton
+            CategoriasControlador controladorCategorias = ControladorPrincipalSingleton.getInstancia().getCategoriasControlador();
+
+            // Configurar la escena y el stage
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Categorias");
             stage.setScene(scene);
             stage.show();
+
+            // Manejar el evento de cierre de la ventana
             stage.setOnCloseRequest(e -> controladorCategorias.cerrarVentana());
-            Stage myStage = (Stage) this.btnInventario.getScene().getWindow();
-            myStage.close();
+
+            // Obtener y guardar el stage del menú principal
+            Stage menuStage = (Stage) btnCategorias.getScene().getWindow();
+            menuStage.hide();
+
+            // Guardar referencia al stage en el Singleton
+            ControladorPrincipalSingleton.getInstancia().setMenuStage(menuStage);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -57,15 +73,17 @@ public class MenuControlador {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/FXMLClientes.fxml"));
             Parent root = loader.load();
-            ClientesControlador clientesControlador = loader.getController();
+            ClientesControlador clientesControlador = ControladorPrincipalSingleton.getInstancia().getClientesControlador();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Clientes");
             stage.setScene(scene);
             stage.show();
             stage.setOnCloseRequest(e -> clientesControlador.cerrarVentana());
-            Stage myStage = (Stage) this.btnClientes.getScene().getWindow();
-            myStage.close();
+            Stage menuStage = (Stage) this.btnCategorias.getScene().getWindow();
+            menuStage.hide();
+            ControladorPrincipalSingleton.getInstancia().setMenuStage(menuStage);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

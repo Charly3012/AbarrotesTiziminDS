@@ -1,39 +1,39 @@
 package com.controlador;
 
+import javafx.stage.Stage;
+
 public class ControladorPrincipalSingleton {
 
-    //En esta parte van a poner la instancia de cada controlador, tiene que ser protected, el unico privado es la instancia principal
-    private ControladorPrincipalSingleton controladorPrincipal;
     private CategoriasControlador categoriasControlador;
+    private ClientesControlador clientesControlador;
+    private Stage menuStage;
 
-
-
-
-    private ControladorPrincipalSingleton(){
-
-        //Aquí dentro ponen la instancia de cada controlador
-        //Ejemplo this.controladorInventarios = new ControladorInventarios()
-        //Obviamente tienen que primero hacer el constructor de su clase controladora respectiva
+    private ControladorPrincipalSingleton() {
         this.categoriasControlador = new CategoriasControlador();
-
+        this.clientesControlador = new ClientesControlador();
     }
 
-    //Esta madre no me la toquen
     private static final ControladorPrincipalSingleton instancia = new ControladorPrincipalSingleton();
 
-
-    //esta madre tampoco me la toquen
-    public static ControladorPrincipalSingleton getInstanciaCP(){
+    public static ControladorPrincipalSingleton getInstancia() {
         return instancia;
     }
-
-    //Van a hacer sus geters como normalemente pero con sus controladores respectivos
 
     public CategoriasControlador getCategoriasControlador() {
         return categoriasControlador;
     }
 
+    public ClientesControlador getClientesControlador(){
+        return clientesControlador;
+    }
 
+    public void setMenuStage(Stage stage) {
+        this.menuStage = stage;
+    }
+
+    public Stage getMenuStage() {
+        return menuStage;
+    }
 }
 
 
