@@ -1,8 +1,7 @@
 package com.controlador;
 
+import javafx.stage.Stage;
 import modelo.Producto;
-import modelo.PAgranel;
-import modelo.PUnidad;
 import modelo.ProductoFactory;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,6 +18,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+
+import java.io.*;
+import java.util.ArrayList;
+
 public class RegistroInvcontroller  {
 
 
@@ -89,6 +92,8 @@ public class RegistroInvcontroller  {
 
            e.printStackTrace();
        }
+
+       persistenciaEscribir();
     }
 
 
@@ -112,6 +117,8 @@ public class RegistroInvcontroller  {
         }catch (Exception e){
             mostrarAlerta("Error en la inicialización", "Hubo un error al inicializar la tabla.", e);
         }
+
+        persistenciaLeer();
     }
 
     private void mostrarAlerta(String titulo, String contenido, Exception e) {
@@ -126,6 +133,20 @@ public class RegistroInvcontroller  {
     }
 
     public void cerrarVentana() {
+
+
+        if (this.tblProductos != null && this.tblProductos.getScene() != null) {
+            Stage myStage = (Stage) this.tblProductos.getScene().getWindow();
+            myStage.close();
+        } else {
+            System.err.println("Error: TableView o su escena es null.");
+        }
+
+        // Mostrar la ventana principal de nuevo
+        Stage menuStage = ControladorPrincipalSingleton.getInstancia().getMenuStage();
+        if (menuStage != null) {
+            menuStage.show();
+        }
 
 
 
@@ -187,6 +208,37 @@ public class RegistroInvcontroller  {
             alertaProductoEliminado.setTitle("Producto eliminado");
             alertaProductoEliminado.setContentText("El producto seleccionado se ha eliminado con éxito");
             alertaProductoEliminado.showAndWait();
+        }
+
+        persistenciaEscribir();
+    }
+
+    public void persistenciaLeer(){
+        File comprobracionExist = new File("src/main/resources/persistencia/productos.cja");
+
+        if(comprobracionExist.exists()){
+            //Persistencia - Leer el archivo de datos
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/productos.cja"));
+                ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
+                productoData.addAll(productosGuardar);
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+
+    public void persistenciaEscribir(){
+        //Persistencia - Guardar los datos en un archivo
+        ArrayList<Producto> productosGuardar = new ArrayList<Producto>(productoData);
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/resources/persistencia/productos.cja"));
+            oos.writeObject(productosGuardar);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

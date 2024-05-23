@@ -65,18 +65,17 @@ public class MenuControlador {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaRegistroInv.fxml"));
             Parent root = loader.load();
-            RegistroInvcontroller controladorCategorias = loader.getController();
+            RegistroInvcontroller registroInvcontroller = ControladorPrincipalSingleton.getInstancia().getRegistroInvcontroller();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
-            stage.setTitle("Categorias");
+            stage.setTitle("Inventario");
             stage.setScene(scene);
             stage.show();
-            stage.setOnCloseRequest(e -> controladorCategorias.cerrarVentana());
-            Stage myStage = (Stage) this.btnInventario.getScene().getWindow();
-            myStage.close();
+            stage.setOnCloseRequest(e -> registroInvcontroller.cerrarVentana());
+            Stage menuStage = (Stage) this.btnCategorias.getScene().getWindow();
+            menuStage.hide();
 
-
-
+            ControladorPrincipalSingleton.getInstancia().setMenuStage(menuStage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

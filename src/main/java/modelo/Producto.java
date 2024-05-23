@@ -1,6 +1,8 @@
 package modelo;
 
-public interface Producto {
+import java.io.Serializable;
+
+public interface Producto extends Serializable {
     void setIdentificador(String identificador);
     String getIdentificador();
     void setNombre(String nombre);
