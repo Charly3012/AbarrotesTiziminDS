@@ -64,6 +64,8 @@ El proyecto fue desarollado por estudiantes de la carrera Ingeniería de softwar
 
 ## Ejemplo de uso 
 Puedes ver un ejemplo de uso del software en el siguiente video 
+
+
 [![Uso de Abarrotes Tizimín](https://img.youtube.com/vi/Hc5HahAN1BY/0.jpg)]([https://www.youtube.com/watch?v=configurowe](https://youtu.be/Hc5HahAN1BY?si=XD3JCSHUHNDDHv1N)b)
 
 ## Estructura del Proyecto
