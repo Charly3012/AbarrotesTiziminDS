@@ -67,6 +67,8 @@ public class Cliente implements Serializable {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
+
 }
 
 

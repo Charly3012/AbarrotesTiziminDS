@@ -113,6 +113,22 @@ public class MenuControlador {
 
     @FXML
     void clickVentas(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaRegistroComprasVentas.fxml"));
+            Parent root = loader.load();
+            ControladorRegistroVentas controladorRegistroVentas = ControladorPrincipalSingleton.getInstancia().getControladorRegistroVentas();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Categorias");
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e -> controladorRegistroVentas.cerrarVentana());
+            Stage menuStage = (Stage) btnCategorias.getScene().getWindow();
+            menuStage.hide();
+            ControladorPrincipalSingleton.getInstancia().setMenuStage(menuStage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

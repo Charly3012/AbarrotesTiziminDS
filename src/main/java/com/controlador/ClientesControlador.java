@@ -365,4 +365,29 @@ public class ClientesControlador implements Initializable {
         }
 
     }
+
+    public Cliente buscarCliente(long telefono){
+
+        File comprobracionExist = new File("src/main/resources/persistencia/clientes.cja");
+
+        if(comprobracionExist.exists()){
+            //Persistencia - Leer el archivo de datos
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/clientes.cja"));
+                ArrayList<Cliente> clientesGuardar = (ArrayList<Cliente>) ois.readObject();
+
+                for (Cliente cliente : clientesGuardar){
+                    if (cliente.getTelefono() == telefono){
+                        return cliente;
+                    }
+                }
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        return null;
+    }
 }
