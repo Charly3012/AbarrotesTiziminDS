@@ -55,7 +55,10 @@ Si desea descargar todos los diagramas del proyecto 'Abarrotes Tizimín' los pue
 <img src="https://github.com/Charly3012/AbarrotesTiziminDS/blob/main/Diagramas/Diagrama%20de%20secuencia%20pago%20en%20efectivo.png" alt="Diagrama de secuencia" width="500" >
 
 #### Diagrama de actividad
-<img src="https://github.com/Charly3012/AbarrotesTiziminDS/blob/main/Diagramas/Diagrama%20de%20actividad%20comprar%20en%20efectivo.png" alt="Diagrama de secuencia" width="500" >
+<img src="https://github.com/Charly3012/AbarrotesTiziminDS/blob/main/Diagramas/Diagrama%20de%20actividad%20comprar%20en%20efectivo.png" alt="Diagrama de actividad" width="500" >
+
+#### Diagrama de estados
+<img src="https://github.com/Charly3012/AbarrotesTiziminDS/blob/main/Diagramas/Diagrama%20de%20estados%20creación%20de%20un%20articulo.png" alt="Diagrama de estados" width="500" >
 
 
 ## Participantes del proyecto
