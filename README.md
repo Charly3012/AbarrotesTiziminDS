@@ -54,6 +54,9 @@ Si desea descargar todos los diagramas del proyecto 'Abarrotes Tizimín' los pue
 #### Diagrama de secuencia
 <img src="https://github.com/Charly3012/AbarrotesTiziminDS/blob/main/Diagramas/Diagrama%20de%20secuencia%20pago%20en%20efectivo.png" alt="Diagrama de secuencia" width="500" >
 
+#### Diagrama de actividad
+<img src="https://github.com/Charly3012/AbarrotesTiziminDS/blob/main/Diagramas/Diagrama%20de%20actividad%20comprar%20en%20efectivo.png" alt="Diagrama de secuencia" width="500" >
+
 
 ## Participantes del proyecto
 El proyecto fue desarollado por estudiantes de la carrera Ingeniería de software de la Universidad Autónoma de Yucatán para la materia Diseño de software
